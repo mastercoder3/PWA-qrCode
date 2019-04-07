@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Verification</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-grid>
+    <ion-row>
+        <ion-col size=1></ion-col>
+        <ion-col size=10>
+    <ion-input class="input" type="text" placeholder="(xxxx) xxx - xxxx" disabled [(ngModel)]="phone"></ion-input>
+         </ion-col>
+         <ion-col size=1></ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-button class="btn" mode="ios">Get a Text</ion-button>
+        </ion-row>
+        <ion-row>
+            <ion-col size=1></ion-col>
+            <ion-col size=10>
+        <ion-input class="input1" type="text" placeholder="Enter verification code" [(ngModel)]="verification"></ion-input>
+             </ion-col>
+             <ion-col size=1></ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-button class="btn" mode="ios" (click)="submit()" >Submit Code</ion-button>
+            </ion-row>
+            <ion-row>
+                <ion-col size=1></ion-col>
+                <ion-col size=10>
+                    <p class="para">Have an account? <a class="a">Login</a></p> 
+                 </ion-col>
+                 <ion-col size=1></ion-col>
+              </ion-row>
+  
+</ion-grid>
+</ion-content>

@@ -1,0 +1,33 @@
+ion-toolbar{
+    --background: #589fda;
+}
+ion-title{
+    color: white !important;
+}
+ion-content{
+    --background: #f4f4f4;
+}
+.input{
+    font-size: 3vh;
+    background-color: white;
+    border: rgb(139, 134, 134) 1px solid;
+    margin-top: 30%;
+}
+.input1{
+    font-size: 3vh;
+    background-color: white;
+    border: rgb(139, 134, 134) 1px solid;
+    margin-top: 15%;
+}
+.btn{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 6vh;
+    width: 30%;
+    margin-top: 6%;
+    --background:#589fda;
+}
+.para{
+    text-align: center;
+ }

@@ -1,5 +1,7 @@
 {
   "name": "barcode-pwa",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

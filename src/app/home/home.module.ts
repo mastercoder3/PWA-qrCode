@@ -5,11 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
+import { NgQrScannerModule } from 'angular2-qrscanner';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    NgQrScannerModule,
     IonicModule,
     RouterModule.forChild([
       {
