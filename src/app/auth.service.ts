@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(public afAuth: AngularFireAuth) { }
+  user;
+
+  constructor(public afAuth: AngularFireAuth, private api: ApiService) { }
 
    // Sign in with Facebook
    FacebookAuth() {
@@ -16,9 +19,21 @@ export class AuthService {
 
   // Auth logic to run auth providers
   AuthLogin(provider) {
+    // console.log(provider)
     return this.afAuth.auth.signInWithPopup(provider)
     .then((result) => {
-        console.log('You have been successfully logged in!')
+      this.user = result;
+      this.api.createUser(result.user.uid, {
+        email: this.user.additionalUserInfo.profile.email,
+        name: this.user.additionalUserInfo.profile.name,
+        imageURL: this.user.user.photoURL,
+        type: 'facebook'
+      })
+        .then(res =>{
+          console.log(res)
+        }, err =>{
+          console.log(err)
+        })
     }).catch((error) => {
         console.log(error)
     })

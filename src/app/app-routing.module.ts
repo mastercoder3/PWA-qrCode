@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { MenuComponent } from './menu/menu.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -7,6 +8,10 @@ const routes: Routes = [
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'verification', loadChildren: './verification/verification.module#VerificationPageModule' },
   { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
+  { path: 'dashboard', component: MenuComponent, children: [
+    {path: '', redirectTo: 'home', pathMatch: 'full'},
+    {path: 'home', loadChildren: './qrcode-home/qrcode-home.module#QrcodeHomePageModule'}
+  ]}
 ];
 
 @NgModule({

@@ -3,6 +3,7 @@ import * as firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginPage implements OnInit {
     email: '',
     password: ''
   }
-  constructor(private auth: AngularFireAuth, private router: Router, private authService: AuthService) { }
+  constructor(private auth: AngularFireAuth, private router: Router, private authService: AuthService , private api: ApiService) { }
 
   ngOnInit() {
     firebase.auth().languageCode = 'en';
@@ -67,17 +68,22 @@ export class LoginPage implements OnInit {
   }
 
   fbLogin(){
-    this.authService.FacebookAuth().then(res =>{
-      console.log(res);
-    }, err =>{
-      console.log(err)
-    })
+    this.authService.FacebookAuth()
   }
 
   googleLogin(){
     this.authService.loginWithGoogle()
       .then(res => {
-        console.log(res);
+        this.api.createUser(res.user.uid, {
+          email: res.user.email,
+          name: res.user.displayName,
+          imageURL: res.user.photoURL,
+          type: 'google'
+        }).then(res =>{
+          console.log(res)
+        }, err =>{
+          console.log(err )
+        })
         
       }, err => {
         console.log(err)

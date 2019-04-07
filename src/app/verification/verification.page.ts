@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase/app';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-verification',
@@ -13,7 +14,7 @@ export class VerificationPage implements OnInit {
   code;
   verification= '';
 
-  constructor(private activated: ActivatedRoute) { }
+  constructor(private activated: ActivatedRoute , private api: ApiService) { }
 
   ngOnInit() {
     this.activated.params.subscribe(data =>{
@@ -28,7 +29,15 @@ export class VerificationPage implements OnInit {
       let signin =  firebase.auth.PhoneAuthProvider.credential(this.code, this.verification);
       firebase.auth().signInWithCredential(signin).then(success => {
         if(success.uid){
-          console.log('logged in');
+          this.api.createUser(success.uid,{
+            phone: this.phone,
+            type: 'phone'
+          })
+          .then(res =>{
+            console.log('logged in');
+          }, err =>{
+            console.log(err);
+          })
         }
       });
     }

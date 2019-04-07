@@ -26,14 +26,14 @@ export class SignupPage implements OnInit {
   submit(form){
     this.auth.signup(form.value.email, form.value.password)
       .then(res =>{
-        this.api.createUser(res.user.uid, {email: form.value.email, password: form.value.password})
+        this.api.createUser(res.user.uid, {email: form.value.email, password: form.value.password, type: 'signup'})
           .then(res => {
             console.log('user created')
           }, err =>{
-
+            console.log(err)
           })
       }, err => {
-
+        console.log(err)
       })
   }
 
