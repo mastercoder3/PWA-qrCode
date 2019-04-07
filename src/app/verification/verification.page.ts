@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { ApiService } from '../api.service';
 
@@ -14,7 +14,7 @@ export class VerificationPage implements OnInit {
   code;
   verification= '';
 
-  constructor(private activated: ActivatedRoute , private api: ApiService) { }
+  constructor(private activated: ActivatedRoute , private api: ApiService, private router: Router) { }
 
   ngOnInit() {
     this.activated.params.subscribe(data =>{
@@ -34,7 +34,8 @@ export class VerificationPage implements OnInit {
             type: 'phone'
           })
           .then(res =>{
-            console.log('logged in');
+            localStorage.setItem('pid',success.uid)
+             this.router.navigate(['/dashboard/home']);
           }, err =>{
             console.log(err);
           })

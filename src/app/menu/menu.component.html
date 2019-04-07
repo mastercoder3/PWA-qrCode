@@ -1,7 +1,34 @@
 <ion-app>
     <ion-split-pane>
       <ion-menu style="width: 100%; height: 100%">
-       <h2>User Profile</h2>
+       <div class="topHeader">
+          <div class="iconDiv">
+              <img src="assets/imgs/person.png">
+          </div>
+       </div>
+       <div class="list">
+         <h3 style="color: black;">
+           &nbsp;&nbsp;
+            <ion-icon name="settings" style="color: grey;"></ion-icon>
+            &nbsp;&nbsp;&nbsp; User
+         </h3>
+         <h3 style="color: black;">
+            &nbsp;&nbsp;
+             <ion-icon name="document" style="color: grey;"></ion-icon>
+             &nbsp;&nbsp;&nbsp; Terms of Services
+          </h3>
+          <h3 style="color: black;">
+              &nbsp;&nbsp;
+               <ion-icon name="alert" style="color: grey;"></ion-icon>
+               &nbsp;&nbsp;&nbsp; Privacy Policy
+            </h3>
+            <h3 style="color: black;" (click)="logout()" style="cursor: pointer;" >
+                &nbsp;&nbsp;
+                 <ion-icon name="log-out" style="color: grey;"></ion-icon>
+                 &nbsp;&nbsp;&nbsp; Logout
+              </h3>
+
+       </div>
       </ion-menu>
       <ion-router-outlet main></ion-router-outlet>
     </ion-split-pane>

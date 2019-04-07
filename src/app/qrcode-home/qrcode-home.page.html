@@ -1,9 +1,20 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>qrcode-home</ion-title>
-  </ion-toolbar>
-</ion-header>
+  <ion-buttons style="position: relative; top: 5px;">
+      <ion-menu-button ></ion-menu-button>
+    </ion-buttons> 
+ </ion-header>
 
 <ion-content>
+  <h5>Scan a QR Code <ion-icon *ngIf="devices > 1" (click)="switch()" name="reverse-camera"
+     style="color: black; position: relative; top: 4px; cursor: pointer;"></ion-icon> </h5>
+  <div class="barcoder">
+      <qr-scanner
+      [debug]="false"
+      [canvasWidth]="150" 
+      [canvasHeight]="160"
+      [stopAfterScan]="true"
+      [updateTime]="500"> 
+    </qr-scanner>
+  </div>
 
 </ion-content>

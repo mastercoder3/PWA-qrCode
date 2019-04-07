@@ -43,7 +43,10 @@ export class LoginPage implements OnInit {
       if(this.userData.email !== '' && this.userData.password !==''){
         this.authService.login(this.userData.email,this.userData.password)
           .then(res =>{
-            console.log(res)
+            if(res){
+              localStorage.setItem('pid',res.user.uid)
+              this.router.navigate(['/dashboard/home']);
+            }
           }, err =>{
             console.log(err)
           })
@@ -79,8 +82,9 @@ export class LoginPage implements OnInit {
           name: res.user.displayName,
           imageURL: res.user.photoURL,
           type: 'google'
-        }).then(res =>{
-          console.log(res)
+        }).then(ress =>{
+          localStorage.setItem('pid',res.user.uid)
+          this.router.navigate(['/dashboard/home']);
         }, err =>{
           console.log(err )
         })

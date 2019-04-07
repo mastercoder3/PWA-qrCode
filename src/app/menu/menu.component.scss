@@ -1,0 +1,30 @@
+.topHeader{
+    height: 150px;
+    background: #4C96F3;
+}
+
+.iconDiv{
+    position: relative;
+    top: 15px;
+    left: 8px;
+}
+
+.iconDiv > img{
+    width: 70px;
+    height: 70px;
+}
+
+.list{
+    position: absolute;
+    top: 160px;
+}
+
+.list h3 > ion-icon{
+    position: relative;
+    top: 5px;
+}
+
+.list > h3{
+    font-weight: 100;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}

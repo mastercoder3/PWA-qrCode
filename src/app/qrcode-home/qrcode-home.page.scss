@@ -1,0 +1,31 @@
+ion-header{
+    background: #589fda;
+    height: 50px;
+}
+
+h5{
+    text-align: center;
+    position: relative;
+    top: 27%;
+}
+
+.barcoder{
+    width: 150px;
+    height: 160px;
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 30%;
+}
+
+.switch{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 35%;
+}
+
+.switch ion-button{
+}

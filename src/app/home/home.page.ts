@@ -21,7 +21,7 @@ export class HomePage implements OnInit{
           if (videoDevices.length > 0){
               let choosenDev;
               for (const dev of videoDevices){
-                console.log(dev)
+                alert(JSON.stringify(dev))
                   if (dev.label.includes('front')){
                       choosenDev = dev;
                       break;

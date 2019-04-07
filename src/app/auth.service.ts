@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { ApiService } from './api.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AuthService {
 
   user;
 
-  constructor(public afAuth: AngularFireAuth, private api: ApiService) { }
+  constructor(public afAuth: AngularFireAuth, private api: ApiService, private router: Router) { }
 
    // Sign in with Facebook
    FacebookAuth() {
@@ -30,7 +31,8 @@ export class AuthService {
         type: 'facebook'
       })
         .then(res =>{
-          console.log(res)
+          localStorage.setItem('pid',result.user.uid)
+          this.router.navigate(['/dashboard/home']);
         }, err =>{
           console.log(err)
         })
