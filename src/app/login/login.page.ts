@@ -13,27 +13,40 @@ export class LoginPage implements OnInit {
 
   recaptchaVerifier;
   phone='';
-
+  userData = {
+    email: '',
+    password: ''
+  }
   constructor(private auth: AngularFireAuth, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     firebase.auth().languageCode = 'en';
 
-    this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-      'size': 'invisible',
-      'callback': function(response) {
-        // reCAPTCHA solved, allow signInWithPhoneNumber.
-        // this.phoneLogin();
-      }
-    });
+
   }
 
   Login(){
-    if(this.phone > ''){
-      this.phoneLogin();
+    console.log(this.phone)
+    if(this.phone.length > 1){
+      this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+        'size': 'invisible',
+        'callback': function(response) {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          // this.phoneLogin();
+          this.phoneLogin();
+        }
+      });
+      
     }
     else{
-
+      if(this.userData.email !== '' && this.userData.password !==''){
+        this.authService.login(this.userData.email,this.userData.password)
+          .then(res =>{
+            console.log(res)
+          }, err =>{
+            console.log(err)
+          })
+      }
     }
   }
 
@@ -59,6 +72,16 @@ export class LoginPage implements OnInit {
     }, err =>{
       console.log(err)
     })
+  }
+
+  googleLogin(){
+    this.authService.loginWithGoogle()
+      .then(res => {
+        console.log(res);
+        
+      }, err => {
+        console.log(err)
+      });
   }
 
 }

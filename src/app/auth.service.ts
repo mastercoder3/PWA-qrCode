@@ -23,5 +23,18 @@ export class AuthService {
         console.log(error)
     })
   }
-  
+
+  async  loginWithGoogle() {
+    return await this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
+  }
+
+
+  login(email,password){
+    return this.afAuth.auth.signInWithEmailAndPassword(email,password);
+  }
+
+  signup(email,password){
+    return this.afAuth.auth.createUserWithEmailAndPassword(email,password);
+  }
+
 }

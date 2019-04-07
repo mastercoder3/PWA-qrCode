@@ -24,7 +24,7 @@ export class VerificationPage implements OnInit {
 
 
   submit(){
-    if(this.verification > ''){
+    if(this.verification !== ''){
       let signin =  firebase.auth.PhoneAuthProvider.credential(this.code, this.verification);
       firebase.auth().signInWithCredential(signin).then(success => {
         if(success.uid){

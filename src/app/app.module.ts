@@ -17,6 +17,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from './auth.service';
+import { ApiService } from './api.service';
 
 
 
@@ -24,7 +27,10 @@ import { environment } from '../environments/environment';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(),
+  imports: [BrowserModule,
+    // FormsModule,
+    // ReactiveFormsModule,
+    IonicModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
@@ -33,7 +39,8 @@ import { environment } from '../environments/environment';
   providers: [
     StatusBar,
     SplashScreen,
-    
+    AuthService,
+    ApiService,  
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
