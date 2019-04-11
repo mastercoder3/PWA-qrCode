@@ -20,6 +20,7 @@ import { environment } from '../environments/environment';
 import { AuthService } from './auth.service';
 import { ApiService } from './api.service';
 import { MenuComponent } from './menu/menu.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 
@@ -34,7 +35,7 @@ import { MenuComponent } from './menu/menu.component';
     AngularFirestoreModule.enablePersistence(), // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
-    AppRoutingModule],
+    AppRoutingModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   providers: [
     StatusBar,
     SplashScreen,

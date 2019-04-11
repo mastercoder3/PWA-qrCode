@@ -58,6 +58,8 @@ export class FormPage implements OnInit {
       else{
         setTimeout( () => {
           this.helper.dismissLoading();
+          this.router.navigate(['dashboard/home']);
+          this.helper.presentToast('No Form To Fill.');
         }, 1000);
 
       }
