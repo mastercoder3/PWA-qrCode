@@ -9,9 +9,10 @@ const routes: Routes = [
   { path: 'verification', loadChildren: './verification/verification.module#VerificationPageModule' },
   { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
   { path: 'dashboard', component: MenuComponent, children: [
-    {path: '', redirectTo: 'home', pathMatch: 'full'},
-    {path: 'home', loadChildren: './qrcode-home/qrcode-home.module#QrcodeHomePageModule'}
-  ]}
+    {path: 'home', loadChildren: './qrcode-home/qrcode-home.module#QrcodeHomePageModule'},
+    { path: 'form', loadChildren: './form/form.module#FormPageModule' }
+  ]},
+
 ];
 
 @NgModule({

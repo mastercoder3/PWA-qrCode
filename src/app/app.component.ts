@@ -14,8 +14,7 @@ export class AppComponent {
     private router: Router
   ) {
     this.initializeApp();
-    if(localStorage.getItem('pid'))
-      this.router.navigate(['/dashboard/home']);
+
   }
 
   initializeApp() {

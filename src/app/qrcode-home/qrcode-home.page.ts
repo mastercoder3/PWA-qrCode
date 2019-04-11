@@ -1,6 +1,7 @@
 import {Component, ViewChild, ViewEncapsulation, OnInit} from '@angular/core';
 import {QrScannerComponent} from 'angular2-qrscanner';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-qrcode-home',
@@ -13,6 +14,8 @@ export class QrcodeHomePage implements OnInit {
     index: number = 0;
     devices = 0;
     $ob: Subscription;
+
+  constructor(private router: Router){}
 
   @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent ;
  

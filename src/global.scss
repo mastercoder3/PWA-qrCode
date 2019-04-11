@@ -13,3 +13,7 @@
 video{
     height: 160px !important;
 }
+
+@import '~ngx-bar-rating/themes/br-fontawesome-theme';
+@import '~ngx-bar-rating/themes/br-bootstrap-theme';
+@import '~ngx-bar-rating/themes/br-stars-theme';

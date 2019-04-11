@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Form</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngFor="let item of buildForm; let i = index">
+  <ion-row>
+    <h5 class="h5">{{item?.text}}:</h5>
+  </ion-row>
+  <ion-row>
+    <ion-col size=12 class="col" >
+      <bar-rating class="barRating" [(rate)]="rate[i].rating" [max]="5" [theme]="'stars'" (rateChange)="setRate(item,i)"></bar-rating>
+    </ion-col>
+    
+  </ion-row>
+</div>
+
+      <br><br>
+      <ion-textarea class="textarea" placeholder="More Comments" *ngIf="buildForm" [(ngModel)]="comment"></ion-textarea>
+      <ion-button class="btn" *ngIf="buildForm" (click)="SubmitForm()" >Submit</ion-button>
+     
+        
+        
+
+</ion-content>

@@ -19,10 +19,12 @@ export class LoginPage implements OnInit {
     email: '',
     password: ''
   }
-  constructor(private auth: AngularFireAuth, private router: Router, private authService: AuthService , private api: ApiService, private helper: HelperService) { }
+  constructor(private auth: AngularFireAuth, private router: Router, private authService: AuthService , private api: ApiService, private helper: HelperService) {
+    if(localStorage.getItem('pid'))
+    this.router.navigate(['dashboard/form']);
+   }
 
   ngOnInit() {
-    this.helper.presentToast('working');
     firebase.auth().languageCode = 'en';
     this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
       'size': 'invisible',
@@ -83,44 +85,58 @@ export class LoginPage implements OnInit {
     this.authService.loginWithGoogle()
       .then(res => {
         if(res.additionalUserInfo.isNewUser){
-          let ok = (data) =>{
-            if(data.data){
-              this.phone = data.data;
-              this.phoneLogin('no');
-              this.helper.presentLoading();
+          // let ok = (data) =>{
+          //   if(data.data){
+          //     this.phone = data.data;
+          //     this.phoneLogin('no');
+          //     this.helper.presentLoading();
 
-              let code = (data) =>{
-                if(data.data){
-                  this.helper.presentLoading();
-                  let signin =  firebase.auth.PhoneAuthProvider.credential( this.code, data.data);
-                  firebase.auth().signInWithCredential(signin).then(success => {
-                    if(success.uid){
-                          this.api.createUser(res.user.uid, {
-                          email: res.user.email,
-                          name: res.user.displayName,
-                          imageURL: res.user.photoURL,
-                          phone: this.phone,
-                          type: 'google'
-                        }).then(ress =>{
-                          this.helper.dismissLoading();
-                          localStorage.setItem('pid',res.user.uid)
-                          this.router.navigate(['/dashboard/home']);
-                        }, err =>{
-                          this.helper.presentToast(err.message);
-                        })
-                    }
-                  });
-                }
-              };
-              setTimeout(()=> {
-                this.helper.dismissLoading();
-                this.helper.presentAlertPrompt('Please Enter Confirmation Code.','Confirmation Code',code);
-              }, 2000);
+          //     let code = (data) =>{
+          //       if(data.data){
+          //         this.helper.presentLoading();
+          //         let signin =  firebase.auth.PhoneAuthProvider.credential( this.code, data.data);
+          //         firebase.auth().signInWithCredential(signin).then(success => {
+          //           if(success.uid){
+          //                 this.api.createUser(res.user.uid, {
+          //                 email: res.user.email,
+          //                 name: res.user.displayName,
+          //                 imageURL: res.user.photoURL,
+          //                 phone: this.phone,
+          //                 type: 'google'
+          //               }).then(ress =>{
+          //                 this.helper.dismissLoading();
+          //                 localStorage.setItem('pid',res.user.uid)
+          //                 this.router.navigate(['/dashboard/home']);
+          //               }, err =>{
+          //                 this.helper.presentToast(err.message);
+          //                 this.helper.dismissLoading();
+          //               })
+          //           }
+          //         });
+          //       }
+          //     };
+          //     setTimeout(()=> {
+          //       this.helper.dismissLoading();
+          //       this.helper.presentAlertPrompt('Please Enter Confirmation Code.','Confirmation Code',code);
+          //     }, 2000);
 
-            }
-          }
-          this.helper.presentAlertPrompt('Please Enter your Phone number to continue.','(xxx) xxx - xxxx',ok);
-
+          //   }
+          // }
+          // this.helper.presentAlertPrompt('Please Enter your Phone number to continue.','(xxx) xxx - xxxx',ok);
+          this.api.createUser(res.user.uid, {
+            email: res.user.email,
+            name: res.user.displayName,
+            imageURL: res.user.photoURL,
+            phone: this.phone,
+            type: 'google'
+          }).then(ress =>{
+            this.helper.dismissLoading();
+            localStorage.setItem('pid',res.user.uid)
+            this.router.navigate(['/dashboard/home']);
+          }, err =>{
+            this.helper.presentToast(err.message);
+            this.helper.dismissLoading();
+          })
         }
         else{
           localStorage.setItem('pid',res.user.uid)

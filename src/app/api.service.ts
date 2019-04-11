@@ -11,4 +11,16 @@ export class ApiService {
   createUser(id,data){
     return this.afs.doc('users/'+id).set(data);
   }
+
+  getFormInstance(cat,item){
+    return this.afs.collection('form', ref => ref.where('categoryId','==',cat).where('itemId','==',item)).snapshotChanges();
+  }
+
+  getQuestions(){
+    return this.afs.collection('questions').snapshotChanges();
+  }
+
+  addToAnswer(data){
+    return this.afs.collection('answer').add(data)
+  }
 }
