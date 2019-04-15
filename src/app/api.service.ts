@@ -12,13 +12,13 @@ export class ApiService {
     return this.afs.doc('users/'+id).set(data);
   }
 
-  getFormInstance(cat,item){
-    return this.afs.collection('form', ref => ref.where('categoryId','==',cat).where('itemId','==',item)).snapshotChanges();
-  }
+  // getFormInstance(cat,item){
+  //   return this.afs.collection('form', ref => ref.where('categoryId','==',cat).where('itemId','==',item)).snapshotChanges();
+  // }
 
-  getQuestions(){
-    return this.afs.collection('questions').snapshotChanges();
-  }
+  // getQuestions(){
+  //   return this.afs.collection('questions').snapshotChanges();
+  // }
 
   addToAnswer(data){
     return this.afs.collection('answer').add(data)
@@ -27,4 +27,14 @@ export class ApiService {
   getForm(id){
     return this.afs.doc('form/'+id).snapshotChanges();
   }
+
+  getAllForms(){
+    return this.afs.collection('form').snapshotChanges();
+  }
+
+  getAnswerById(uid,fid){
+    return this.afs.collection('answer', ref => ref.where('uid', '==', uid).where('formId','==',fid)).valueChanges();
+  }
+
+
 }

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Router } from '@angular/router';
+// import { Platform } from '@ionic/angular';
+// import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+// import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +11,8 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   constructor(
-    private router: Router
   ) {
     this.initializeApp();
-
   }
 
   initializeApp() {

@@ -21,7 +21,8 @@ export class FormPage implements OnInit {
   flag;
   formId;
 
-  constructor(private activatedRoute: ActivatedRoute, private helper: HelperService, private api: ApiService, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private helper: HelperService, private api: ApiService, private router: Router) {
+   }
 
 // form;categoryId=EmGeE4R6fqszphXIGj4l;itemId=J0btypcueBpDgU40OhW0
 
@@ -30,29 +31,31 @@ export class FormPage implements OnInit {
     this.activatedRoute.params.subscribe(res =>{
      this.formId = res.formId;
       if(this.formId){
-        this.api.getFormInstance(this.categoryId, this.ItemId)
-          .pipe(map(actions => actions.map(a =>{
-            const data = a.payload.doc.data();
-            const did = a.payload.doc.id;
-            return {did, ...data}
-          })))
-          .subscribe(formData => {
-            this.form = formData;
-            this.api.getQuestions()
-              .pipe(map(actions => actions.map(a =>{
-                const data = a.payload.doc.data();
-                const did = a.payload.doc.id;
-                return {did, ...data}
-              })))
-                .subscribe(questionResponse =>{
-                  this.questions = questionResponse;
-                  this.flag = this.form[0].questionId;
-                  if(this.flag.length > 0 && this.questions.length > 0){
-                    this.buildForm = this.questions.filter(data => this.flag.indexOf(data.did) > -1);
-                    this.helper.dismissLoading();
-                    this.setForm();
+        this.api.getForm(this.formId)
+          .pipe(map(actions => {
+            const data = actions.payload.data();
+            const did = actions.payload.id;
+            return {did, ...data};
+          }))
+          .subscribe(res =>{
+            this.form = res;
+            this.helper.dismissLoading();
+            this.setForm();
+            this.api.getAnswerById(localStorage.getItem('pid'),this.formId)
+              .subscribe(ress =>{
+                this.flag = ress;
+                if(this.form.oneTime){
+                  this.helper.presentToast('You Already filled this form.');
+                  this.router.navigate(['/dashboard/home']);
+                }
+                else if(this.flag.length> 0){
+                  if( Date.now() - new Date(this.flag[0].time.toDate()).getTime() < 86400000){
+                    this.helper.presentToast('Cannot Fill this form at the moment. Comeback later.');
+                  this.router.navigate(['/dashboard/home']);
                   }
-                })
+                  
+                }
+              })
           })
       }
       else{
@@ -67,16 +70,15 @@ export class FormPage implements OnInit {
   }
 
   setForm(){
-    if(this.buildForm.length > 0){
-      this.rate = new Array(this.buildForm.length);
-      for(let i =0; i< this.buildForm.length; i++){
-        this.rate[i] = {questionId: '', questionText: '', rating: 0};
+    if(this.form.questions.length > 0){
+      this.rate = new Array(this.form.questions.length);
+      for(let i =0; i< this.form.questions.length; i++){
+        this.rate[i] = { questionText: '', rating: 0};
       }
     }
   }
   setRate(item,i){
-    this.rate[i].questionId = item.did;
-    this.rate[i].questionText = item.text;
+    this.rate[i].questionText = item;
   }
 
   SubmitForm(){
@@ -84,7 +86,9 @@ export class FormPage implements OnInit {
       let data = {
         uid: localStorage.getItem('pid'),
         answers: this.rate,
-        comment: this.comment
+        comment: this.comment,
+        formId: this.formId,
+        time: new Date()
       }
       this.api.addToAnswer(data)
         .then(res => {

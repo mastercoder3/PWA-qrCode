@@ -32,7 +32,13 @@ export class AuthService {
       })
         .then(res =>{
           localStorage.setItem('pid',result.user.uid)
-          this.router.navigate(['/dashboard/home']);
+          if(localStorage.getItem('formId'))
+            {this.router.navigate(['/dashboard/form',{
+              formId: localStorage.getItem('formId')
+            }]);
+            localStorage.removeItem('formId');}
+            else
+             this.router.navigate(['/dashboard/home']);
         }, err =>{
           console.log(err)
         })

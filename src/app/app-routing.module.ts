@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { MenuComponent } from './menu/menu.component';
+import { AuthGaurdService } from './auth-gaurd.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -9,8 +10,10 @@ const routes: Routes = [
   { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
   { path: 'dashboard', component: MenuComponent, children: [
     {path: 'home', loadChildren: './qrcode-home/qrcode-home.module#QrcodeHomePageModule'},
-    { path: 'form', loadChildren: './form/form.module#FormPageModule' }
-  ]},
+    { path: 'form', loadChildren: './form/form.module#FormPageModule' },
+    {path: 'form:formId', loadChildren: './form/form.module#FormPageModule'  }
+  ], canActivate: [AuthGaurdService]},
+  { path: 'user-settings', loadChildren: './user-settings/user-settings.module#UserSettingsPageModule' },
 
 ];
 

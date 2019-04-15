@@ -47,7 +47,13 @@ export class LoginPage implements OnInit {
           .then(res =>{
             if(res){
               localStorage.setItem('pid',res.user.uid)
-              this.router.navigate(['/dashboard/home']);
+              if(localStorage.getItem('formId'))
+                {this.router.navigate(['/dashboard/form',{
+                  formId: localStorage.getItem('formId')
+                }]);
+                localStorage.removeItem('formId');}
+                else
+                this.router.navigate(['/dashboard/home']);
             }
           }, err =>{
             console.log(err)
@@ -132,7 +138,13 @@ export class LoginPage implements OnInit {
           }).then(ress =>{
             this.helper.dismissLoading();
             localStorage.setItem('pid',res.user.uid)
-            this.router.navigate(['/dashboard/home']);
+            if(localStorage.getItem('formId'))
+            {this.router.navigate(['/dashboard/form',{
+              formId: localStorage.getItem('formId')
+            }]);
+            localStorage.removeItem('formId');}
+            else
+             this.router.navigate(['/dashboard/home']);
           }, err =>{
             this.helper.presentToast(err.message);
             this.helper.dismissLoading();
@@ -140,7 +152,13 @@ export class LoginPage implements OnInit {
         }
         else{
           localStorage.setItem('pid',res.user.uid)
-          this.router.navigate(['/dashboard/home']);
+          if(localStorage.getItem('formId'))
+            {this.router.navigate(['/dashboard/form',{
+              formId: localStorage.getItem('formId')
+            }]);
+            localStorage.removeItem('formId');}
+            else
+             this.router.navigate(['/dashboard/home']);
         }
         
         
