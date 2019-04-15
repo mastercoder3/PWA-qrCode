@@ -19,6 +19,7 @@ export class FormPage implements OnInit {
   buildForm;
   comment: string = '';
   flag;
+  formId;
 
   constructor(private activatedRoute: ActivatedRoute, private helper: HelperService, private api: ApiService, private router: Router) { }
 
@@ -27,9 +28,8 @@ export class FormPage implements OnInit {
   ngOnInit() {
     this.helper.presentLoading();
     this.activatedRoute.params.subscribe(res =>{
-      this.categoryId = res.categoryId;
-      this.ItemId = res.itemId;
-      if(this.categoryId && this.ItemId){
+     this.formId = res.formId;
+      if(this.formId){
         this.api.getFormInstance(this.categoryId, this.ItemId)
           .pipe(map(actions => actions.map(a =>{
             const data = a.payload.doc.data();

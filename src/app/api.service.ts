@@ -23,4 +23,8 @@ export class ApiService {
   addToAnswer(data){
     return this.afs.collection('answer').add(data)
   }
+
+  getForm(id){
+    return this.afs.doc('form/'+id).snapshotChanges();
+  }
 }

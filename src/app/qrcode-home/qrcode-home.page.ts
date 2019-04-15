@@ -53,7 +53,7 @@ export class QrcodeHomePage implements OnInit {
     });
 
    this.$ob =  this.qrScannerComponent.capturedQr.subscribe(result => {
-        alert(result);
+    window.location.href = result;
     });
   }
 
