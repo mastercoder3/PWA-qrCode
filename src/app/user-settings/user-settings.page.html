@@ -1,9 +1,23 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>user-settings</ion-title>
-  </ion-toolbar>
-</ion-header>
-
+    <ion-buttons style="position: relative; top: 5px;">
+        <ion-menu-button ></ion-menu-button>
+      </ion-buttons> 
+      <h4 style="color: white;">User Settings</h4>
+   </ion-header>
 <ion-content>
+
+  <div class="container">
+    <h4>Change password</h4>
+    <ion-input class="input1" type="password" placeholder="Enter Your Old Password" [(ngModel)]="oldPassword"></ion-input>
+    <br>
+    <ion-input class="input1" type="password" placeholder="Enter Your New Password" [(ngModel)]="password"></ion-input>
+    <ion-button class="btn" (click)="changePassword()" >Change Password</ion-button>
+  </div>
+  <br>
+  <div class="container">
+      <h4>Change Email Address</h4>
+      <ion-input class="input1" type="email" placeholder="Enter new Email" [(ngModel)]="newEmail"></ion-input>
+      <ion-button class="btn" (click)="changeEmail()" >Change Email</ion-button>
+    </div>
 
 </ion-content>

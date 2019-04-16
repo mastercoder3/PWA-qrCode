@@ -2,7 +2,7 @@
   "index": "/index.html",
   "assetGroups": [
     {
-      "name": "app",
+      "name": "PWA",
       "installMode": "prefetch",
       "resources": {
         "files": [

@@ -21,7 +21,7 @@ export class LoginPage implements OnInit {
   }
   constructor(private auth: AngularFireAuth, private router: Router, private authService: AuthService , private api: ApiService, private helper: HelperService) {
     if(localStorage.getItem('pid'))
-    this.router.navigate(['dashboard/form']);
+    this.router.navigate(['dashboard/home']);
    }
 
   ngOnInit() {

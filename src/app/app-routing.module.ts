@@ -11,9 +11,10 @@ const routes: Routes = [
   { path: 'dashboard', component: MenuComponent, children: [
     {path: 'home', loadChildren: './qrcode-home/qrcode-home.module#QrcodeHomePageModule'},
     { path: 'form', loadChildren: './form/form.module#FormPageModule' },
-    {path: 'form:formId', loadChildren: './form/form.module#FormPageModule'  }
+    {path: 'form:formId', loadChildren: './form/form.module#FormPageModule'  },
+    { path: 'user-settings', loadChildren: './user-settings/user-settings.module#UserSettingsPageModule' }
+
   ], canActivate: [AuthGaurdService]},
-  { path: 'user-settings', loadChildren: './user-settings/user-settings.module#UserSettingsPageModule' },
 
 ];
 
