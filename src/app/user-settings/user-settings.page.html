@@ -11,13 +11,13 @@
     <ion-input class="input1" type="password" placeholder="Enter Your Old Password" [(ngModel)]="oldPassword"></ion-input>
     <br>
     <ion-input class="input1" type="password" placeholder="Enter Your New Password" [(ngModel)]="password"></ion-input>
-    <ion-button class="btn" (click)="changePassword()" >Change Password</ion-button>
+    <ion-button class="btn" (click)="changePassword()" [disabled]="user?.type !== 'signup' " >Change Password</ion-button>
   </div>
   <br>
   <div class="container">
       <h4>Change Email Address</h4>
       <ion-input class="input1" type="email" placeholder="Enter new Email" [(ngModel)]="newEmail"></ion-input>
-      <ion-button class="btn" (click)="changeEmail()" >Change Email</ion-button>
+      <ion-button class="btn" (click)="changeEmail()" [disabled]="user?.type !== 'signup' ">Change Email</ion-button>
     </div>
 
 </ion-content>

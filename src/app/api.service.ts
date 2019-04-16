@@ -12,6 +12,14 @@ export class ApiService {
     return this.afs.doc('users/'+id).set(data);
   }
 
+  getUser(id){
+    return this.afs.doc('users/'+id).valueChanges();
+  }
+
+  updateUser(id,data){
+    return this.afs.doc('users/'+id).update(data);
+  }
+
   // getFormInstance(cat,item){
   //   return this.afs.collection('form', ref => ref.where('categoryId','==',cat).where('itemId','==',item)).snapshotChanges();
   // }
