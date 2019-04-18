@@ -65,7 +65,7 @@ export class LoginPage implements OnInit {
   code;
 
   phoneLogin(goto?) {
-    this.auth.auth.signInWithPhoneNumber(this.phone, this.recaptchaVerifier)
+    this.auth.auth.signInWithPhoneNumber('+1'+this.phone, this.recaptchaVerifier)
       .then((confirmationResult) => {
         if(goto === 'no'){
           this.code = confirmationResult.verificationId;

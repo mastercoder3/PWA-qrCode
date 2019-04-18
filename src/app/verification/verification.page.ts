@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as firebase from 'firebase/app';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -13,13 +14,34 @@ export class VerificationPage implements OnInit {
   phone;
   code;
   verification= '';
+  recaptchaVerifier;
 
-  constructor(private activated: ActivatedRoute , private api: ApiService, private router: Router) { }
+  constructor(private activated: ActivatedRoute , private api: ApiService, private router: Router,private auth: AngularFireAuth) { }
 
   ngOnInit() {
     this.activated.params.subscribe(data =>{
       this.phone = data.phone;
       this.code = data.code;
+    });
+    firebase.auth().languageCode = 'en';
+    this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+      'size': 'invisible',
+      'callback': function(response) {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+        // this.phoneLogin();
+       
+      }
+    });
+  }
+
+  sendAgain(){
+    this.auth.auth.signInWithPhoneNumber('+1'+this.phone, this.recaptchaVerifier)
+    .then((confirmationResult) => {
+        this.code = confirmationResult.verificationId;
+     
+    }).catch((error) => {
+      // Error; SMS not sent
+      // ...
     });
   }
 

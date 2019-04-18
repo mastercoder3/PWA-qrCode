@@ -41,12 +41,16 @@ export class SignupPage implements OnInit {
   }
 
   submit(form){
-    if(form.value.phone){
+    if(form.value.phone.length === 10){
       this.helper.presentLoading();
-      this.authh.auth.signInWithPhoneNumber(form.value.phone, this.recaptchaVerifier)
+      this.authh.auth.signInWithPhoneNumber('+1'+form.value.phone, this.recaptchaVerifier)
       .then((confirmationResult) => {
         this.helper.dismissLoading();
         let func = (data) =>{
+          if(data.data === '' || !data.data){
+            this.helper.presentToast('Failed to authenticate User.');
+            return;
+          }
           this.helper.presentLoading();
           let signin =  firebase.auth.PhoneAuthProvider.credential(confirmationResult.verificationId, data.data);
           firebase.auth().signInWithCredential(signin).then(success => {
@@ -87,6 +91,9 @@ export class SignupPage implements OnInit {
         // Error; SMS not sent
         // ...
       });
+    }
+    else{
+      this.helper.presentToast('Please Fill the Fields Correctly.');
     }
    
   }
